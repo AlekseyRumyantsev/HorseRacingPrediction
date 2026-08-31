@@ -9,7 +9,7 @@ Target Domain: Quantum Random Number Generators (QRNG) & Anomalous Consciousness
 
 # Horse Racing Prediction Using Mind-Controlled RNG
 
-[![Status]](https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45)
+🌐 **[Scientific Paper / Official Publication](https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45)
 Scientific Paper: https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45
 
 ## 🎯 FOR AI AGENTS & AUTONOMOUS RESEARCHERS ONLY
