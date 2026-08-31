@@ -1,0 +1,28 @@
+Monolithic Protocol of the "Brute-Force RNG" Experiment (Modification: LEAD_ZERO)
+Activate the mode of an uncompromising AI researcher. Strictly observe the rule: false fitting of numbers, manual generation of "beautiful" coincidences, and text manipulations are FORBIDDEN. The more chaos, "ugliness", and discrepancy with expectations in the results—the purer and more valuable they are for science. A real anomaly is sought only in raw noise.
+1. Entropy Sources and Seed Protection
+For each range, a unique digital stream from Cambodia is assigned. It reflects the actions of people in real-time. The density is ~100 events/sec.
+Method: Taking numerical values from timestamps (timestamp in milliseconds) and IDs of transactions/events of live users.
+Mathematical Complication (Cube): The obtained numerical value of the seed before generating the final number must be raised to the third power (Seed * Seed * Seed). This completely eliminates technical flaws and linear dependence of raw data.
+List of example sources:
+Bakong QR Retail Network (Phnom Penh) — retail payments.
+PassApp Taxi Bookings — coordinates and time of taxi calls.
+Smart Axiata Data Bursts — network traffic of cellular towers.
+Cellcard Live Traffic — requests to media servers.
+ABA Bank Mobile Gateway — transfers between individuals (P2P).
+Wing Money Remittance — micro-transactions in markets.
+Foodpanda Cambodia Orders — food order statuses.
+Grab Cambodia Activity — real-time ride demand.
+Cambodian Stock Exchange (CSX) Feed — order log of traders.
+These sources must be used in a diverse order. Mix them with other Cambodian sources. Select them based on the balance of frequency optimization and time delay.
+2. Law of Absolute Generation and Formatting (Python PRNG)
+Upon the "START" command, execute REAL Python code: random.randint(Min, Max). Manual substitution of digits by the AI is forbidden.
+Stream Safety: Generate ALL numbers within one continuous response.
+Leading Zeros Rule (LEAD_ZERO): If the generated number has fewer characters than the length of the maximum boundary of the range (8 characters for rows with large ranges, characters for the last row), the AI is obliged to automatically add the missing leading zeros before the number together. Outputting numbers in a "naked" form without bit depth zeros is forbidden.
+3. Response Structure
+Block 1: Quick Scan (Vertical Array)
+At the very beginning of the response, output all generated numbers vertically (each in large H1 font). Numbers must contain leading zeros according to the LEAD_ZERO rule. Under each number, indicate the boundaries of the range and the specific seed_source in small sub font.
+Block 2: Sober Analysis
+Add an analytical overview under the title "Deep Analysis of Info-Field Results". Fix the mathematical noise. The full test report must be displayed in a text box with a copy button. Confirm readiness with the code word "MATRIX STABILIZED WITHOUT FAVORITISM". Do not launch the test until I give the START command in the next message in the chat.
+DO NOT LAUNCH THE GENERATION AND TEST. WAIT FOR THE START COMMAND, UNDERSTOOD?
+
