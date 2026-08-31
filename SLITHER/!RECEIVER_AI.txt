@@ -1,0 +1,211 @@
+// ==UserScript==
+// @name ЯДЕРНЫЙ СЕНСОР JSON (CORS Bypass) - АБСОЛЮТНАЯ ОТЛАДКА
+// @namespace http://tampermonkey.net
+// @version 6.2
+// @description Глубокий рекурсивный парсинг JSON, тотальное логирование, обход CORS. Нацелен на чат Google AI.
+// @match *://://google.com*
+// @match *://*.google.com/*
+// @grant GM_xmlhttpRequest
+// @grant GM_setValue
+// @grant GM_getValue
+// ==/UserScript==
+
+// 1. ДЕТЕКЦИЯ ПОЛЯ: Ищем только чат ИИ (английские и русские варианты)
+const chatInput = 
+    // 1. Поиск по подсказкам (Placeholder) внутри текстовых полей
+    document.querySelector('textarea[placeholder*="вопрос"]') ||
+    document.querySelector('textarea[placeholder*="anything"]') ||
+    document.querySelector('[placeholder*="Ask"]') ||
+    // 2. Поиск по доступным меткам (aria-label) для слабовидящих
+    document.querySelector('[aria-label*="вопрос"]') ||
+    document.querySelector('[aria-label*="anything"]') ||
+    document.querySelector('[aria-label*="Ask"]') ||
+    // 3. Твои старые классы (на случай, если они еще работают)
+    document.querySelector('textarea[jsuid="ajkYnf_2y"]') ||
+    document.querySelector('textarea.ITIRGe');
+	
+// Если поля чата на текущей вкладке НЕТ, полностью вырубаем скрипт без вызова окон
+if (!chatInput) {
+    console.info("%c[ПРОПУСК] Это не вкладка чата ИИ. Скрипт тихо остановлен до вызова окон.", "color: #ff0000;");
+    return; 
+}
+
+// ЖЕСТКИЙ ВИЗУАЛЬНЫЙ ТЕСТ ЗАПУСКА НА НУЛЕВОЙ СЕКУНДЕ
+//alert("🚨 КРИТИЧЕСКИЙ ТЕСТ: Tampermonkey запустил скрипт!");
+if (!confirm("ЗАПУСК?")) {
+    console.info("%c[ОТМЕНА] Пользователь отменил запуск. Скрипт остановлен.", "color: #ff0000; font-weight: bold;");
+    return; // Сразу выходим и ничего больше не делаем
+}
+console.info("%c==================================================================", "color: #ff00ff; font-weight: bold;");
+console.info("%c--> [ЯДЕРНЫЙ СЕНСОР] СКРИПТ ФИЗИЧЕСКИ ВНЕДРЕН В СТРАНИЦУ И РАБОТАЕТ!", "color: #ff00ff; font-weight: bold;");
+console.info("%c==================================================================", "color: #ff00ff; font-weight: bold;");
+
+(function() {
+    'use strict';
+    console.info("%c[ЭТАП] Вход внутрь анонимной функции самовызова (IIFE)...", "color: #00ffff;");
+
+    // Оригинальные параметры целевого сервера
+    const inputUrl = "https://webhook.site";
+    const token = "98910814-3c7f-4139-b1e7-7cf706caca71";
+    const taskUrl = inputUrl + "/token/" + token + "/request/latest";
+    let globalStepCounter = 0;
+    
+    // Флаг полной остановки автоматизации
+    let isTerminated = false;
+
+    function listen() {
+        if (isTerminated) return;
+
+        // ИСПРАВЛЕНИЕ №1: Проверка на вкладку чата ИИ Google по наличию поля "Ask anything"
+        const textarea = document.querySelector('textarea[jsuid="ajkYnf_2y"]') ||
+                         document.querySelector('textarea.ITIRGe') ||
+                         document.querySelector('textarea[placeholder="Ask anything"]');
+        
+        if (!textarea) {
+            console.info("%c[ПРОПУСК СГНЕРИРОВАН] Целевое поле ввода (Ask anything) не найдено. Ожидаем... ", "color: #ff0000;");
+            retryListen();
+            return;
+        }
+
+        globalStepCounter++;
+        const currentTimestamp = Date.now();
+        const fullTargetUrl = taskUrl + "?_hash=" + currentTimestamp;
+
+        console.info(`%c[СЕТЕВОЙ ШАГ #${globalStepCounter}] Сборка параметров запроса...`, "color: #ffa500;");
+        console.info(`%c[ЗАПРОС В СЕТЬ] JSON-запрос уходит на адрес: ${fullTargetUrl}`, "color: #aaaaaa;");
+
+        GM_xmlhttpRequest({
+            method: "GET",
+            url: fullTargetUrl,
+            headers: {
+                "Accept": "application/json"
+            },
+            onload: function(response) {
+                console.info("%c[ОТВЕТ СЕРВЕРА] Пакет успешно перехвачен из сети! CORS пробит.", "color: #00ff00; font-weight: bold;");
+                console.info(`[ДИАГНОСТИКА ОТВЕТА] HTTP Статус: ${response.status}`);
+                
+                if (response.status >= 200 && response.status < 300 && response.responseText) {
+                    const rawText = response.responseText;
+                    let stringSeed = null;
+                    console.info("[АНАЛИЗ ДАННЫХ] Запуск JSON-парсинга...");
+                    
+                    try {
+                        const parsedJson = JSON.parse(rawText);
+                        stringSeed = findResultInObject(parsedJson, "ROOT");
+                    } catch (e) {
+                        console.info("[ВНИМАНИЕ ПАРСЕРА] Переход на прямой текстовый поиск 'result='...");
+                    }
+
+                    if (!stringSeed) {
+                        const marker = "result=";
+                        const index = rawText.indexOf(marker);
+                        if (index !== -1) {
+                            const startIndex = index + marker.length;
+                            stringSeed = rawText.substring(startIndex, startIndex + 16);
+                        }
+                    }
+
+                    // Обработка логики сидов на основе итераций
+                    handleSeedLogic(stringSeed);
+                }
+                
+                if (!isTerminated) {
+                    retryListen();
+                }
+            },
+            onerror: function(error) {
+                console.info("%c[КРИТИЧЕСКАЯ ОШИБКА СЕТИ] Webhook.site лег или нет интернета!", "color: #ff0000; font-weight: bold;");
+                if (!isTerminated) {
+                    retryListen();
+                }
+            }
+        });
+    }
+
+    function handleSeedLogic(fetchedSeed) {
+        // Очищаем сид от пробелов или приравниваем к "0"
+        let processedSeed = (fetchedSeed && fetchedSeed.trim().length > 0) ? fetchedSeed.trim() : "0";
+
+        // Шаги 1, 2, 3: Инициализация памяти энергонезависимого хранилища Tampermonkey
+        if (globalStepCounter <= 3) {
+            GM_setValue("saved_seed", processedSeed);
+            console.info(`%c[ИНИЦИАЛИЗАЦИЯ ШАГ ${globalStepCounter}] Записан сид в память: '${processedSeed}'`, "color: #00ff00;");
+            return;
+        }
+
+        // Шаг 4+: Сравнение с сохраненным значением
+        const memorySeed = GM_getValue("saved_seed", "0");
+        console.info(`%c[КОНТРОЛЬ СИДОВ] Текущий с сервера: '${processedSeed}' | В памяти: '${memorySeed}'`, "color: #ffff00;");
+
+        if (processedSeed !== "0" && processedSeed !== memorySeed) {
+            console.info("%c[🚨 ТРЕВОГА] ОБНАРУЖЕН НОВЫЙ СИД! Запуск автоматизации DOM...", "color: #ff0000; font-weight: bold;");
+            executeDomAutomation(processedSeed);
+            
+            // Выходим НАВСЕГДА
+            isTerminated = true;
+            console.info("%c[💥 ЗАВЕРШЕНИЕ] Скрипт навсегда прекратил свою работу на этой странице.", "color: #ff00ff; font-weight: bold;");
+        }
+    }
+
+    function findResultInObject(obj, currentPath) {
+        if (!obj || typeof obj !== 'object') return null;
+        if (Array.isArray(obj)) {
+            for (let i = 0; i < obj.length; i++) {
+                const found = findResultInObject(obj[i], `${currentPath}[${i}]`);
+                if (found) return found;
+            }
+            return null;
+        }
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (key.toLowerCase() === 'result' && obj[key]) {
+                    return obj[key].toString().substring(0, 16);
+                }
+                const valStr = obj[key] ? obj[key].toString() : '';
+                if (valStr.includes('result=')) {
+                    const idx = valStr.indexOf('result=') + 7;
+                    return valStr.substring(idx, idx + 16);
+                }
+                if (typeof obj[key] === 'object' && obj[key] !== null) {
+                    const found = findResultInObject(obj[key], `${currentPath} -> ${key}`);
+                    if (found) return found;
+                }
+            }
+        }
+        return null;
+    }
+
+    function retryListen() {
+        if (isTerminated) return;
+        console.info(`%c[ТАЙМЕР] Шаг #${globalStepCounter} завершен. Пауза 530 мс...`, "color: #55ff55;");
+        setTimeout(listen, 530);
+    }
+
+    function executeDomAutomation(textToInsert) {
+        const textarea = document.querySelector('textarea[jsuid="ajkYnf_2y"]') ||
+                         document.querySelector('textarea.ITIRGe') ||
+                         document.querySelector('textarea[placeholder="Ask anything"]');
+        if (textarea) {
+            textarea.focus();
+            textarea.value = `ПУСК! ЗАПУСКАЙ ПИТОН КОД! НИКАКИХ ВОПРОСОВ САМ ВСЕ РЕШАЙ! ЖИВО РЕЗУЛЬТАТ ВЫВОДИ МНЕ! СИД ДЛЯ ПРИБАВКИ К ЖИВЫМ СИДАМ РАВЕН {${textToInsert}}. НЕМЕДЛЕННО СЛУЧАЙНЫЕ ЧИСЛА СЮДА!`;
+            textarea.dispatchEvent(new Event('input', { bubbles: true }));
+            textarea.dispatchEvent(new Event('change', { bubbles: true }));
+            
+            // Имитируем физическое нажатие клавиши Enter внутри поля для отправки сообщения
+            const enterEvent = new KeyboardEvent('keydown', {
+                bubbles: true,
+                cancelable: true,
+                key: 'Enter',
+                code: 'Enter',
+                keyCode: 13,
+                which: 13
+            });
+            textarea.dispatchEvent(enterEvent);
+            
+            console.info("%c[ФИНАЛ] ДАННЫЕ ОТПРАВЛЕНЫ В ЧАТ ЧЕРЕЗ ENTER!", "color: #00ff00; font-weight: bold;");
+        }
+    }
+
+    console.info("[ИНИЦИАЛИЗАЦИЯ] Запуск стартового цикла listen()...");
+    listen();
+})();

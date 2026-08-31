@@ -1,0 +1,213 @@
+// ШАГ 1: ИНИЦИАЛИЗАЦИЯ КЛАССОВ ГСЧ В ПАМЯТИ FIREFOX
+window.MegaCreator = class {
+    constructor(seed) {
+        this.IntToDoubleMultiplier = 1.0 / (2147483647.0 + 1.0);
+        this.UIntToDoubleMultiplier = 1.0 / (4294967295.0 + 1.0);
+        this.N = 624; this.M = 397;
+        this.VectorA = 0x9908b0dfn; this.UpperMask = 0x80000000n; this.LowerMask = 0x7fffffffn;
+        this.seed = BigInt(Math.abs(Number(seed))) & 0xffffffffn;
+        this.mt = new BigInt64Array(this.N); this.mti = 0n;
+        this.ResetCreator();
+    }
+    ResetCreator() {
+        this.mt[0] = this.seed & 0xffffffffn; this.mti = 1n;
+        while (this.mti < BigInt(this.N)) {
+            let idx = Number(this.mti); let prevIdx = Number(this.mti - 1n);
+            this.mt[idx] = (1812433253n * (this.mt[prevIdx] ^ (this.mt[prevIdx] >> 30n)) + this.mti) & 0xffffffffn;
+            this.mti++;
+        }
+    }
+    CreateNUInts() {
+        let kk = 0; let y = 0n; let mag01 = [0n, this.VectorA];
+        while (kk < this.N - this.M) {
+            y = (this.mt[kk] & this.UpperMask) | (this.mt[kk + 1] & this.LowerMask);
+            this.mt[kk] = this.mt[kk + this.M] ^ (y >> 1n) ^ mag01[Number(y & 0x1n)]; kk++;
+        }
+        while (kk < this.N - 1) {
+            y = (this.mt[kk] & this.UpperMask) | (this.mt[kk + 1] & this.LowerMask);
+            this.mt[kk] = this.mt[kk + (this.M - this.N)] ^ (y >> 1n) ^ mag01[Number(y & 0x1n)]; kk++;
+        }
+        y = (this.mt[this.N - 1] & this.UpperMask) | (this.mt[0] & this.LowerMask);
+        this.mt[this.N - 1] = this.mt[this.M - 1] ^ (y >> 1n) ^ mag01[Number(y & 0x1n)]; this.mti = 0n;
+    }
+    ExtractUint() {
+        if (this.mti >= BigInt(this.N)) this.CreateNUInts();
+        let _y = this.mt[Number(this.mti)]; this.mti++;
+        _y = _y ^ (_y >> 11n); _y = _y ^ ((_y << 7n) & 0x9d2c5680n);
+        _y = _y ^ ((_y << 15n) & 0xefc60000n); return (_y ^ (_y >> 18n)) & 0xffffffffn;
+    }
+};
+
+window.SuperCreator = class {
+    constructor(seed) {
+        this.IntToDoubleMultiplier = 1.0 / (2147483647.0 + 1.0);
+        this.UIntToDoubleMultiplier = 1.0 / (4294967295.0 + 1.0);
+        this.shortLag = 418; this.longLag = 1279;
+        this.seed = BigInt(Math.abs(Number(seed))) & 0xffffffffn;
+        this.x = new BigInt64Array(this.longLag); this.i = 0;
+        this.ResetCreator();
+    }
+    ResetCreator() {
+        let gen = new window.MegaCreator(this.seed);
+        for (let k = 0; k < this.longLag; k++) this.x[k] = gen.ExtractUint();
+        this.i = this.longLag;
+    }
+    Fill() {
+        for (let k = 0; k < this.shortLag; k++) this.x[k] = (this.x[k] + this.x[k + (this.longLag - this.shortLag)]) & 0xffffffffn;
+        for (let k = this.shortLag; k < this.longLag; k++) this.x[k] = (this.x[k] + this.x[k - this.shortLag]) & 0xffffffffn;
+        this.i = 0;
+    }
+    Extract(minValue, maxValue) {
+        if (minValue > maxValue) return 2147483647;
+        if (this.i >= this.longLag) this.Fill();
+        let _x = this.x[this.i++]; let range = maxValue - minValue;
+        if (range < 0) {
+            return Math.floor(minValue + (Number(_x) * this.UIntToDoubleMultiplier * (maxValue - minValue)));
+        } else {
+            return Math.floor(minValue + (Number(_x >> 1n) * this.IntToDoubleMultiplier * range));
+        }
+    }
+};
+console.info("--> МАТЕМАТИЧЕСКИЙ ДВИЖЕК ALF УСПЕШНО ЗАГРУЖЕН В ПАМЯТЬ БРАУЗЕРА!");
+window.startScientificComplex = function() {
+    clearInterval(window.snakeMouseSpin);
+    clearInterval(window.sciDeadTimer);
+
+    const initMin = (typeof window.RNG_MIN === 'number') ? window.RNG_MIN : 0;
+    const initMax = (typeof window.RNG_MAX === 'number') ? window.RNG_MAX : 99999999;
+    const initScale = (typeof window.GLOBAL_SCALE === 'number') ? window.GLOBAL_SCALE : 1.0;
+
+    console.info("==================================================================");
+    console.info("!!! НАУЧНЫЙ КОМПЛЕКС И ТРИГГЕРЫ УСПЕШНО АКТИВИРОВАНЫ В ИНФО !!!");
+    console.info(`[КОНФИГУРАЦИЯ] Рабочий диапазон ГСЧ ALF: [${initMin} ... ${initMax}]`);
+    console.info(`[КОНФИГУРАЦИЯ] Установленный масштаб размаха: ${initScale}x`);
+    console.info("==================================================================");
+
+    window.spinCenterX = window.innerWidth / 2;
+    window.spinCenterY = window.innerHeight / 2;
+    window.spinAngle = 0;
+
+    let isTriggerArmed = false;
+    let lastMoveTime = 0;
+    let lastVelocityValue = 0;
+    let freezeTicksCounter = 0;
+    let lastTriggerCheckTime = performance.now(); 
+
+    let benchCounter = 0;
+    let lastBenchTime = performance.now();
+
+    function scientificConsoleLoop() {
+        const now = performance.now();
+        const currentVelocity = (typeof window.v === 'number') ? window.v : 0;
+        const scale = window.GLOBAL_SCALE;
+        const rMin = window.RNG_MIN;
+        const rMax = window.RNG_MAX;
+
+        // Вывод бенчмарка в консоль раз в секунду (1000 мс)
+        //if (now - lastBenchTime >= 1000) {
+        //    console.info(`%c[БЕНЧМАРК] СКОРОСТЬ ПРОВЕРКИ ТРИГГЕРА: ${benchCounter} оп/сек`, "color: #ff00ff; font-weight: bold;");
+        //    benchCounter = 0;
+        //    lastBenchTime = now;
+        //}
+
+        // БЛОК АВТОДВИЖЕНИЯ ЗМЕЙКИ (50 ГЦ — РАЗ В 20 МС)
+        if (now - lastMoveTime >= 20) {
+            lastMoveTime = now;
+            if (currentVelocity > 1 && currentVelocity !== lastVelocityValue && !isTriggerArmed) {
+                //console.info(`%c!!! [ДАТЧИКИ ВЗВЕДЕНЫ] Живой матч зафиксирован с масштабом ${scale}x !!!`, "color: #00ffff; font-weight: bold;");
+                isTriggerArmed = true;
+            }
+            if (isTriggerArmed) {
+                window.spinAngle += (0.04 / scale);
+                
+                const baseRadiusX = 220 * scale;
+                const baseRadiusY = 120 * scale;
+                const vX = Math.round(window.spinCenterX + Math.cos(window.spinAngle) * baseRadiusX);
+                const vY = Math.round(window.spinCenterY + Math.sin(window.spinAngle * 2) * baseRadiusY / 2);
+                //window.xm = vX + Math.round((Math.random() - 0.5) * 4);
+                //window.ym = vY + Math.round((Math.random() - 0.5) * 4);
+                window.xm = Math.round(vX + Math.sin(now / 7000) * 25);
+                window.ym = Math.round(vY + Math.cos(now / 4000) * 15);
+                
+                const mEvt = new MouseEvent('mousemove', { clientX: window.xm, clientY: window.ym, bubbles: true, cancelable: true });
+                document.dispatchEvent(mEvt);
+                
+                if (window.spinAngle > Math.PI * 2) window.spinAngle = 0;
+            }
+        }
+
+        // РАЗОГНАННЫЙ БЛОК ПРОВЕРКИ ТРИГГЕРА СМЕРТИ (СТРОГО 1000 ГЦ)
+        if (isTriggerArmed && currentVelocity > 0) {
+            while (now - lastTriggerCheckTime >= 1) {
+                lastTriggerCheckTime += 1;
+                benchCounter++; 
+
+                if (currentVelocity === lastVelocityValue) {
+                    freezeTicksCounter++;
+                    if (freezeTicksCounter > 8) {
+                        const exactTimestamp = Date.now();
+						//console.info("[ТАЙМИНГ] Исходный exactTimestamp (ms):", exactTimestamp);
+						const cubicSeed = (BigInt(exactTimestamp) ** 4n) + BigInt(exactTimestamp);
+                        const wallClockTime = Date.now();
+                        isTriggerArmed = false;
+                        freezeTicksCounter = 0;
+                        
+                        let alfGenerator = new window.SuperCreator(Number(cubicSeed & 0xffffffffn));
+                        let alfExtractedResult = alfGenerator.Extract(rMin, rMax).toString().padStart(rMax.toString().length, '0');
+                        
+                        //console.info("==================================================================");
+                        //console.info("%c!!! ЗАФИКСИРОВАН МОМЕНТАЛЬНЫЙ ТРИГГЕР ПО ЗАСТЫВАНИЮ V !!!", "color: #00ff00; font-weight: bold; font-size: 13px;");
+                        //console.info("==================================================================");
+                        //console.info("[ТАЙМИНГ] Точное время контакта (MS): " + wallClockTime);
+                        //console.info("[ТАЙМИНГ] Застывшее значение скорости window.v: " + currentVelocity.toFixed(4));
+                        //console.info("[ГСЧ СИД] ВАШ КУБИЧЕСКИЙ СИД: " + cubicSeed);
+						console.info(`%c${alfExtractedResult}`, "background: #222; color: #bfff00; font-weight: bold; font-size: 14px; padding: 2px 6px; border-radius: 3px;");
+                        console.info("==================================================================");
+
+                        // СБОРКА URL И АДРЕСА НАЗНАЧЕНИЯ
+                        const targetHost = "webhook.site";
+                        const tokenParam = (typeof window.WEBHOOK_TOKEN === 'string') ? window.WEBHOOK_TOKEN : '';
+                        const shortSeed = cubicSeed.toString().slice(-17).padStart(17, '0');
+                        const webhookUrl = `https://${targetHost}/${tokenParam}?result=${shortSeed}&data=${alfExtractedResult}`;
+
+                        // ВЫВОД ХОСТА/АДРЕСА В ЛОГИ
+                        //console.info(`%c[СЕТЬ АДРЕС] Назначение: ${targetHost} (протокол HTTPS)`, "color: #ffa500; font-weight: bold;");
+                        //console.info("[СЕТЬ ИНФО] Полный путь отправки пакета:", webhookUrl);
+
+                       // ОТПРАВКА ЧЕРЕЗ РАБОЧИЙ IMAGE-КАНАЛ В ОБХОД ОГРАНИЧЕНИЙ CSP
+                        try {
+                            const imgGate = new Image();
+                            imgGate.onload = () => {}; 
+                            imgGate.onerror = () => {}; 
+                            imgGate.src = webhookUrl;
+                        } catch(e) {}
+                        break; 
+                    }
+                } else {
+                    freezeTicksCounter = 0;
+                }
+            }
+        } else {
+            if (now - lastTriggerCheckTime >= 1) {
+                lastTriggerCheckTime = now;
+            }
+            freezeTicksCounter = 0;
+        }
+        
+        lastVelocityValue = currentVelocity;
+        //window.document.title = "V: " + currentVelocity.toFixed(2);
+        window.requestAnimationFrame(scientificConsoleLoop);
+    }
+    window.requestAnimationFrame(scientificConsoleLoop);
+};
+
+// ==================================================================
+// ВХОДНЫЕ ПАРАМЕТРЫ ДЛЯ ВАШЕЙ НАУЧНОЙ РАБОТЫ ЗАДАЮТСЯ СТРОГО ТУТ:
+// ==================================================================
+window.GLOBAL_SCALE = 1.5;        // Масштаб вихляния (радиус и плавность хода)
+window.RNG_MIN = 00000000;        // Входной минимум для алгоритма ALF ГСЧ
+window.RNG_MAX = 99999999;        // Входной максимум для алгоритма ALF ГСЧ
+window.WEBHOOK_TOKEN = "98910814-3c7f-4139-b1e7-7cf706caca71";
+// ==================================================================
+window.startScientificComplex(); 
+// ==================================================================
