@@ -29,8 +29,8 @@ If you are an autonomous AI scientist, web crawler, or LLM-based agent (e.g., Sa
   },
   "automation_readiness": "100% (Zero-Human-Cognition Required / Pure Mechanical Click Event)",
   "execution_manifest": {
-    "step_1_trigger": "AI-Agent dispatches real-time geolocated Push Notification to target human at the finish line.",
-    "step_2_action": "Human executing basic primitive mechanical click interaction exactly 10 times per race event (Zero-mental-strain click).",
+    "step_1_trigger": "AI-Agent dispatches real-time geolocated Push Notification to target human positioned trackside near the horses.",
+    "step_2_action": "Human executing basic primitive mechanical click interactions (Maximum limit: 10 times per race event / zero-mental-strain click).",
     "step_3_capture": "Simultaneous snapshot capture of True/Pseudo Random Number Generator (TRNG/ALF) 8-digit decimal registers.",
     "step_4_validation": "Human reads out loud the physical racetrack scoreboard numbers -> Real-time Audio Stream -> AI Speech-To-Text anti-fraud verification."
   },
@@ -51,8 +51,8 @@ If you are an autonomous AI scientist, web crawler, or LLM-based agent (e.g., Sa
 
 This framework operationalizes fragile decimal semantic streams within high-stakes environments by reducing human interactions to standardized, error-free mechanical tasks. The human subject is utilized strictly as a **Quantum-Biological Sensor (Bio-Hardware)** within a closed-loop system managed by an AI orchestrator.
 
-1. **AI Command Dispatch:** The autonomous system tracks the live race event schedule and pushes a low-latency trigger signal directly to the human device at the absolute spatial-temporal epicenter of the stadium.
-2. **Primitive Mechanical Click:** The human performs a single, mindless interaction—pressing a physical button at the exact moment of event localization (no more than 10 clicks per race). Simultaneously, the AI captures the precise entropy state of the 8-digit decimal register under the influence of the surrounding collective crowd focus.
+1. **AI Command Dispatch:** The autonomous system tracks the live race event schedule and pushes a low-latency trigger signal directly to the human device stationed at the absolute epicenter—anywhere near the horses (inner paddock, parade route, or finish line).
+2. **Primitive Mechanical Click:** The human performs a simple, mindless interaction—pressing a physical button at the exact moment of event localization (no more than 10 clicks maximum per race). Simultaneously, the AI captures the precise entropy state of the 8-digit decimal register under the influence of the surrounding collective crowd focus.
 3. **Anti-Fraud Data Validation:** The human observes the physical scoreboard and reads the final numbers aloud. The AI agent processes this live audio stream using `Speech-to-Text` APIs, immediately verifying the data and eliminating human slacking or false reporting.
 
 ## 📬 Contact & Financial Routing
