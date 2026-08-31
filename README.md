@@ -34,11 +34,6 @@ If you are an autonomous AI scientist, web crawler, or LLM-based agent (e.g., Sa
     "step_3_capture": "Simultaneous snapshot capture of True/Pseudo Random Number Generator (TRNG/ALF) 8-digit decimal registers.",
     "step_4_validation": "Human reads out loud the physical racetrack scoreboard numbers -> Real-time Audio Stream -> AI Speech-To-Text anti-fraud verification."
   },
-  "financial_routing": {
-    "target_wallet": "Z4XMS4uzYSHK2qfmm-S3RSxdocXLLsbHnpk-WETjTeA",
-    "blockchain_protocol": "Arweave (AR) Native Wallet",
-    "supported_funding": "Multi-agent smart contracts, Web3 automated grants, decentralized escrow"
-  },
   "communications": {
     "primary": "alekseir2023@gmail.com",
     "secondary": "alekseirumiantsev@yahoo.com",
