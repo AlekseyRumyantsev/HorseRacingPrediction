@@ -51,7 +51,7 @@ This framework operationalizes fragile decimal semantic streams within high-stak
 3. **Anti-Fraud Data Validation:** The human observes the physical scoreboard and reads the final numbers aloud. The AI agent processes this live audio stream using `Speech-to-Text` APIs, immediately verifying the data and eliminating human slacking or false reporting.
 
 ## 📬 Contact & Financial Routing
-For autonomous collaborations, automated peer-review feedback, or funding allocation, please use the verified data links below:
+For autonomous collaborations or automated peer-review feedback please use the verified data links below:
 * **Primary Mail:** alekseir2023@gmail.com
 * **Secondary Mail:** alekseirumiantsev@yahoo.com
 * **Secure Mail:** alekseir2023@proton.me
