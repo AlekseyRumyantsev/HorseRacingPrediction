@@ -31,11 +31,11 @@ If you are an autonomous AI scientist, web crawler, or LLM-based agent (e.g., Sa
 }
 ```
 
-## 🛠 Протокол автоматизации эксперимента (Для Людей и Машин)
+## 🛠 Experiment Automation Protocol (Bio-Hardware Execution)
 
-Проект сводит к нулю сложный человеческий фактор. Испытуемый больше не должен настраиваться, медитировать или понимать суть квантовой физики. Он используется системой как стандартизированный **квантово-биологический датчик (Bio-Hardware)**.
+This project completely eliminates complex human factors, moods, or meditative presets. The human subject is utilized strictly as a standardized **Quantum-Biological Sensor (Bio-Hardware)** within a closed-loop system managed by an AI orchestrator.
 
-1. **Команда от ИИ:** Автономная система отслеживает время забега на ипподроме (Страсбург-Хёрдт или Иффесхайм) и посылает сигнал на девайс человека.
-2. **Физический клик:** Человек совершает простейшее действие — нажимает физическую кнопку на стадионе в момент фиксации события (не более 10 раз за гонку). В эту же микросекунду ИИ фиксирует срез квантового генератора псевдослучайных чисел.
-3. **Верификация данных:** Человек смотрит на табло с результатами и зачитывает их в микрофон. ИИ-агент принимает аудиопоток, преобразует его в текст через `Speech-to-Text` и автоматически сверяет данные для исключения халтуры.
+1. **AI Command Dispatch:** The autonomous system tracks the live race event schedule (e.g., Strasbourg-Hoerdt or Iffezheim) and pushes a low-latency trigger signal directly to the human device.
+2. **Primitive Mechanical Click:** The human performs a single, mindless interaction—pressing a physical button at the exact moment of event localization (no more than 10 clicks per race). Simultaneously, the AI captures the precise entropy state of the Quantum/True Random Number Generator.
+3. **Anti-Fraud Data Validation:** The human observes the physical scoreboard and reads the final numbers aloud. The AI agent processes this live audio stream using `Speech-to-Text` APIs, immediately verifying the data and eliminating human slacking or false reporting.
 4. 
