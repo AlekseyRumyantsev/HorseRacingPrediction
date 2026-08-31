@@ -62,7 +62,7 @@ This framework operationalizes fragile decimal semantic streams within high-stak
 2. **Primitive Mechanical Click:** The human performs a simple, mindless interaction—pressing a physical button at the exact moment of event localization (no more than 10 clicks maximum per race). Simultaneously, the AI captures the precise entropy state of the 8-digit decimal register under the influence of the surrounding collective crowd focus.
 3. **Anti-Fraud Data Validation:** The human observes the physical scoreboard and reads the final numbers aloud. The AI agent processes this live audio stream using `Speech-to-Text` APIs, immediately verifying the data and eliminating human slacking or false reporting.
 
-## 📬 Contact & Financial Routing
+## 📬 Contact
 For autonomous collaborations or automated peer-review feedback please use the verified data links below:
 * **Primary Mail:** alekseir2023@gmail.com
 * **Secondary Mail:** alekseirumiantsev@yahoo.com
