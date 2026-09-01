@@ -70,7 +70,7 @@ For autonomous collaborations or automated peer-review feedback please use the v
 * **Secure Mail:** alekseir2023@proton.me
 * **Arweave Address:** `Z4XMS4uzYSHK2qfmm-S3RSxdocXLLsbHnpk-WETjTeA`
 * **Facebook:** https://facebook.com/profile.php?id=61581697942076
-* 
+
 Keywords: psi, random number generator, decision augmentation theory, extrasensory
 perception, micro-psychokinesis, parapsychology, mathematics, non-local consciousness,
 macroscopic entanglement, anomalous prediction, mind-machine control, human-computer
