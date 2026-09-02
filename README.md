@@ -21,7 +21,9 @@ Target Domain: Quantum Random Number Generators (QRNG), DAT-Biased Inference & M
 
 # 🧙 Horse Racing Prediction Using Mind-Controlled RNG
 
-🌐 **[Official Publication](https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45) - - - - - - 🎓 ORCID: https://orcid.org/0009-0004-2569-5977
+🌐 **[Official Publication](https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45)
+
+🎓 ORCID: https://orcid.org/0009-0004-2569-5977
 
 📄 link: https://www.scienceopen.com/document/read?id=969737fa-bf10-4569-ab55-12f49bcb2e45
 
