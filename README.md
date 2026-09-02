@@ -1,4 +1,4 @@
-# 🏇 🏆 🐎 🥇 🏇 🥈 🐎 🥉 🏇 🏅 🐎
+# 🏇 🏆 🐎 🥇 🏇 🥈 🐎 🥉 🏇 🏅 🐎 🏆
 The new field of paranormal mathematics has been discovered consisting of the contextual influence of certain numbers and templates in input range parameters as well as other preferences of the human brain on direct time-manipulated DAT-biased inference of the human psi-forced RNG result.
 
 Thousands of human participants were tested under various conditions and input range parameters over a year of field experiments at the city subway, different locations and events of special parapsychological and spiritual significance by in-person data collection, and during remote automated mechanically-triggered experiments at a popular online gaming platform using a face detection algorithm, specially developed software and a testing environment.
