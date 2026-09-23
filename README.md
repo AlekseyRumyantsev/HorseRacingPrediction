@@ -1,9 +1,7 @@
 # 🏇 🏆 🐎 🥇 🏇 🥈 🐎 🥉 🏇 🏅 🐎 🏆
 
 📖 DOI: 10.14293/PR2199.004377.v1
-
-🌐 **[Official Publication](https://www.scienceopen.com/document/read?vid=fe313eba-7ad6-4773-8682-540b102f40c5)
-SO-VID: fe313eba-7ad6-4773-8682-540b102f40c5
+   🌐 **[Official Publication](https://www.scienceopen.com/document/read?vid=fe313eba-7ad6-4773-8682-540b102f40c5)
 
 The new field of paranormal mathematics has been discovered consisting of the contextual influence of certain numbers and templates in input range parameters as well as other preferences of the human brain on direct time-manipulated DAT-biased inference of the human psi-forced RNG result.
 
@@ -28,6 +26,8 @@ Target Domain: Quantum Random Number Generators (QRNG), DAT-Biased Inference & M
 # 🧙 Horse Racing Prediction Using Mind-Controlled RNG for Anomalous Financial Gain
 
 📖 DOI: 10.14293/PR2199.004377.v1
+
+SO-VID: fe313eba-7ad6-4773-8682-540b102f40c5
 
 🎓 ORCID: https://orcid.org/0009-0004-2569-5977
 
